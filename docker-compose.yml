@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    networks:
+      - appnet
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env   # ← facultatif pour dev, mais pas utile ici car .env est injecté au build
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
